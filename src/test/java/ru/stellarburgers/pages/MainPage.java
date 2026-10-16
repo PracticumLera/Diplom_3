@@ -1,5 +1,6 @@
 package ru.stellarburgers.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stellarburgers.base.BasePage;
@@ -15,22 +16,27 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
+    @Step("Проверить загрузку главной страницы")
     public boolean isMainPageLoaded() {
         return isDisplayed(mainTitle);
     }
 
+    @Step("Нажать кнопку «Войти в аккаунт»")
     public void clickLoginButton() {
         click(loginButton);
     }
 
+    @Step("Нажать ссылку «Личный Кабинет»")
     public void clickPersonalAccountLink() {
         click(personalAccountLink);
     }
 
+    @Step("Проверить, что кнопка «Оформить заказ» отображается")
     public boolean isOrderButtonDisplayed() {
         return isDisplayed(orderButton);
     }
 
+    @Step("Ожидать появления кнопки «Оформить заказ»")
     public void waitForOrderButtonVisible() {
         waitForElementVisible(orderButton);
     }

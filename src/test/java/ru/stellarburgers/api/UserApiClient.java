@@ -1,5 +1,6 @@
 package ru.stellarburgers.api;
 
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -23,6 +24,7 @@ public class UserApiClient {
                 .header("Content-Type", "application/json");
     }
 
+    @Step("Создание пользователя через API: {user.email}")
     public Response createUser(UserModel user) {
         Response response = spec
                 .body(user)
@@ -34,6 +36,7 @@ public class UserApiClient {
         return response;
     }
 
+    @Step("Логин пользователя через API: {user.email}")
     public Response loginUser(UserModel user) {
         Response response = spec
                 .body(user)
@@ -45,6 +48,7 @@ public class UserApiClient {
         return response;
     }
 
+    @Step("Удаление пользователя через API")
     public Response deleteUser() {
         if (accessToken == null || accessToken.isEmpty()) {
             return null;

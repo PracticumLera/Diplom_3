@@ -1,5 +1,6 @@
 package ru.stellarburgers.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stellarburgers.base.BasePage;
@@ -13,10 +14,12 @@ public class ForgotPasswordPage extends BasePage {
         super(driver);
     }
 
+    @Step("Проверить загрузку страницы восстановления пароля")
     public boolean isForgotPasswordPageLoaded() {
         return isDisplayed(pageTitle);
     }
 
+    @Step("Нажать ссылку «Войти»")
     public void clickLoginLink() {
         click(loginLink);
     }

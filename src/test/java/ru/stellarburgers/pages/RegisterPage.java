@@ -1,5 +1,6 @@
 package ru.stellarburgers.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stellarburgers.base.BasePage;
@@ -18,30 +19,37 @@ public class RegisterPage extends BasePage {
         super(driver);
     }
 
+    @Step("Проверить загрузку страницы регистрации")
     public boolean isRegisterPageLoaded() {
         return isDisplayed(registerTitle);
     }
 
+    @Step("Ввести имя: {name}")
     public void enterName(String name) {
         type(nameField, name);
     }
 
+    @Step("Ввести email: {email}")
     public void enterEmail(String email) {
         type(emailField, email);
     }
 
+    @Step("Ввести пароль")
     public void enterPassword(String password) {
         type(passwordField, password);
     }
 
+    @Step("Нажать кнопку «Зарегистрироваться»")
     public void clickRegisterButton() {
         click(registerButton);
     }
 
+    @Step("Нажать ссылку «Войти»")
     public void clickLoginLink() {
         click(loginLink);
     }
 
+    @Step("Зарегистрировать пользователя: {name}")
     public void register(String name, String email, String password) {
         enterName(name);
         enterEmail(email);
@@ -49,10 +57,12 @@ public class RegisterPage extends BasePage {
         clickRegisterButton();
     }
 
+    @Step("Проверить отображение ошибки пароля")
     public boolean isPasswordErrorDisplayed() {
         return isDisplayed(passwordError);
     }
 
+    @Step("Получить текст ошибки пароля")
     public String getPasswordErrorText() {
         return getText(passwordError);
     }

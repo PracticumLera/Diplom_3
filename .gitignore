@@ -11,6 +11,9 @@ target/maven-status/
 target/surefire-reports/
 target/test-classes/
 target/jacoco.exec
+target/generated-sources/
+target/generated-test-sources/
+target/site/
 
 # Java
 *.class
@@ -29,4 +32,3 @@ Thumbs.db
 
 # Allure
 .allure/
-target/allure-results/

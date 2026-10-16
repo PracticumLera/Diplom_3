@@ -15,74 +15,81 @@
 - **Maven** — сборка проекта
 
 ## Структура проекта
+
+```text
 src/test/java/ru/stellarburgers/
 ├── api/
-│ └── UserApiClient.java — API-клиент (регистрация/удаление юзера)
+│   └── UserApiClient.java              — API-клиент (регистрация/удаление юзера)
 ├── base/
-│ ├── BasePage.java — базовый Page Object
-│ └── BaseUiTest.java — базовый тест-класс
+│   ├── BasePage.java                   — базовый Page Object
+│   └── BaseUiTest.java                 — базовый тест-класс
 ├── constants/
-│ └── Config.java — URL-адреса и константы
+│   └── Config.java                     — URL-адреса и константы
 ├── models/
-│ └── UserModel.java — модель пользователя
+│   └── UserModel.java                  — модель пользователя
 ├── pages/
-│ ├── MainPage.java — Page Object главной страницы
-│ ├── LoginPage.java — Page Object входа
-│ ├── RegisterPage.java — Page Object регистрации
-│ ├── ForgotPasswordPage.java — Page Object восстановления пароля
-│ └── ConstructorPage.java — Page Object конструктора бургеров
+│   ├── MainPage.java                   — Page Object главной страницы
+│   ├── LoginPage.java                  — Page Object входа
+│   ├── RegisterPage.java               — Page Object регистрации
+│   ├── ForgotPasswordPage.java         — Page Object восстановления пароля
+│   └── ConstructorPage.java            — Page Object конструктора бургеров
 ├── steps/
-│ ├── ConstructorSteps.java — Steps для конструктора
-│ ├── ForgotPasswordSteps.java — Steps для восстановления пароля
-│ ├── HomeSteps.java — Steps для главной страницы
-│ ├── LoginSteps.java — Steps для входа
-│ └── RegisterSteps.java — Steps для регистрации
+│   ├── ConstructorSteps.java           — Steps для конструктора
+│   ├── ForgotPasswordSteps.java        — Steps для восстановления пароля
+│   ├── HomeSteps.java                  — Steps для главной страницы
+│   ├── LoginSteps.java                 — Steps для входа
+│   └── RegisterSteps.java              — Steps для регистрации
 ├── tests/
-│ ├── RegistrationTest.java — 2 теста регистрации
-│ ├── LoginTest.java — 4 теста входа
-│ └── ConstructorNavigationTest.java — 3 теста конструктора
+│   ├── RegistrationTest.java           — 2 теста регистрации
+│   ├── LoginTest.java                  — 4 теста входа
+│   └── ConstructorNavigationTest.java  — 3 теста конструктора
 └── utils/
-├── BrowserFactory.java — фабрика браузеров (Chrome, Яндекс)
-└── TestDataGenerator.java — генерация тестовых данных
+    ├── BrowserFactory.java             — фабрика браузеров (Chrome, Яндекс)
+    └── TestDataGenerator.java          — генерация тестовых данных
+Тесты (9 штук)
+Регистрация (RegistrationTest) — 2 теста
+✅ Успешная регистрация — проверка регистрации новой учётной записи с валидными данными
 
-text
+✅ Ошибка при пароле менее 6 символов — проверка сообщения об ошибке
 
-## Тесты (9 штук)
+Вход (LoginTest) — 4 теста
+✅ Вход через кнопку «Войти в аккаунт» на главной
 
-### Регистрация (`RegistrationTest`) — 2 теста
-- ✅ **Успешная регистрация** — проверка регистрации новой учётной записи с валидными данными
-- ✅ **Ошибка при пароле менее 6 символов** — проверка сообщения об ошибке
+✅ Вход через кнопку «Личный кабинет»
 
-### Вход (`LoginTest`) — 4 теста
-- ✅ **Вход через кнопку «Войти в аккаунт» на главной**
-- ✅ **Вход через кнопку «Личный кабинет»**
-- ✅ **Вход через кнопку в форме регистрации**
-- ✅ **Вход через кнопку в форме восстановления пароля**
+✅ Вход через кнопку в форме регистрации
 
-### Конструктор (`ConstructorNavigationTest`) — 3 теста
-- ✅ **Переход к разделу «Булки»**
-- ✅ **Переход к разделу «Соусы»**
-- ✅ **Переход к разделу «Начинки»**
+✅ Вход через кнопку в форме восстановления пароля
 
-## Быстрый старт
+Конструктор (ConstructorNavigationTest) — 3 теста
+✅ Переход к разделу «Булки»
 
-### Требования
+✅ Переход к разделу «Соусы»
 
-- **Java 11+** — [скачать](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
-- **Maven 3.6+** — [скачать](https://maven.apache.org/download.cgi)
-- **Google Chrome** — браузер для тестирования (по умолчанию)
-- **Яндекс Браузер** — браузер для тестирования (опционально)
+✅ Переход к разделу «Начинки»
 
-### Установка Яндекс Браузера и драйвера
+Быстрый старт
+Требования
+Java 11+ — скачать
 
+Maven 3.6+ — скачать
+
+Google Chrome — браузер для тестирования (по умолчанию)
+
+Яндекс Браузер — браузер для тестирования (опционально)
+
+Установка Яндекс Браузера и драйвера
 Для запуска тестов в Яндекс Браузере:
 
-1. Установить **Яндекс Браузер**.
-2. Скачать **`yandexdriver.exe`** с [GitHub releases](https://github.com/yandex/YandexDriver/releases).
-3. Указать путь к драйверу в `Config.java`:
-   ```java
-   public static final String YANDEX_DRIVER_PATH = 
-       "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
+Установить Яндекс Браузер.
+
+Скачать yandexdriver.exe с GitHub releases.
+
+Указать путь к драйверу в Config.java:
+
+java
+public static final String YANDEX_DRIVER_PATH =
+    "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
 Запуск тестов
 Запуск всех тестов (Chrome по умолчанию)
 bash
@@ -99,7 +106,7 @@ mvn clean test -Dtest=RegistrationTest
 mvn clean test -Dtest=LoginTest
 mvn clean test -Dtest=ConstructorNavigationTest
 Особенность запуска
-⚠️ Важно: на момент сдачи диплома сервер stellarburgers.education-services.ru был недоступен (технические работы на стороне сервиса).
+⚠️ Важно: на момент сдачи диплома сервер stellarburgers.education-services.ru был недоступен (из-за технических работ на стороне сервиса).
 
 По этой причине все 9 тестов падают с TimeoutException на шаге driver.get(Config.BASE_URL) — ChromeDriver не может загрузить страницу, потому что сервер не отвечает.
 
@@ -201,9 +208,9 @@ java
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserModel {
-private String email;
-private String password;
-private String name;
+    private String email;
+    private String password;
+    private String name;
 }
 TestDataGenerator
 Генератор уникальных тестовых данных:
@@ -362,8 +369,9 @@ public static final int PAGE_LOAD_TIMEOUT = 15;
 
 // Браузер
 public static final String DEFAULT_BROWSER =
-System.getProperty("browser", "chrome");
+    System.getProperty("browser", "chrome");
 public static final String YANDEX_DRIVER_PATH =
-System.getProperty("yandex.driver.path",
-"C:/Users/valer/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe");
+    System.getProperty("yandex.driver.path",
+        "C:/Users/valer/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe");
+        
 Этот проект создан как финальный диплом Яндекс.Практикума по QA-автоматизации.

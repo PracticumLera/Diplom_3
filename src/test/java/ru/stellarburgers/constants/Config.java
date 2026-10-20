@@ -2,7 +2,7 @@ package ru.stellarburgers.constants;
 
 public class Config {
 
-    public static final String BASE_URL = "https://stellarburgers.education-services.ru";
+    public static final String BASE_URL = "https://qa-stellarburgers.education-services.ru";
     public static final String REGISTER_URL = BASE_URL + "/register";
     public static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
 

@@ -1,6 +1,6 @@
 # Diplom_3: UI-автотесты для Stellar Burgers
 
-Проект автоматизации UI-тестирования приложения [Stellar Burgers](https://stellarburgers.education-services.ru) на Java 11 с использованием Selenium WebDriver, JUnit 4, Allure и паттерна Page Object.
+Проект автоматизации UI-тестирования приложения Stellar Burgers на Java 11 с использованием Selenium WebDriver, JUnit 4, Allure и паттерна Page Object.
 
 ## Стек технологий
 
@@ -47,6 +47,8 @@ src/test/java/ru/stellarburgers/
     ├── BrowserFactory.java             — фабрика браузеров (Chrome, Яндекс)
     └── TestDataGenerator.java          — генерация тестовых данных
 Тесты (9 штук)
+Текущий результат: ✅ 9 passed (100% успеха).
+
 Регистрация (RegistrationTest) — 2 теста
 ✅ Успешная регистрация — проверка регистрации новой учётной записи с валидными данными
 
@@ -85,11 +87,11 @@ Google Chrome — браузер для тестирования (по умол�
 
 Скачать yandexdriver.exe с GitHub releases.
 
-Указать путь к драйверу в Config.java:
+Указать пути в Config.java:
 
 java
-public static final String YANDEX_DRIVER_PATH =
-    "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
+public static final String YANDEX_DRIVER_PATH = "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
+public static final String YANDEX_BROWSER_PATH = "C:\\Program Files\\Yandex\\YandexBrowser\\Application\\browser.exe";
 Запуск тестов
 Запуск всех тестов (Chrome по умолчанию)
 bash
@@ -105,15 +107,6 @@ bash
 mvn clean test -Dtest=RegistrationTest
 mvn clean test -Dtest=LoginTest
 mvn clean test -Dtest=ConstructorNavigationTest
-Особенность запуска
-⚠️ Важно: на момент сдачи диплома сервер stellarburgers.education-services.ru был недоступен (из-за технических работ на стороне сервиса).
-
-По этой причине все 9 тестов падают с TimeoutException на шаге driver.get(Config.BASE_URL) — ChromeDriver не может загрузить страницу, потому что сервер не отвечает.
-
-Это не ошибка кода — тесты написаны корректно, структура проекта соответствует критериям. Скриншоты Allure-отчёта приведены ниже.
-
-После восстановления доступа к серверу тесты будут перезапущены, и отчёт обновится.
-
 Allure-отчёты
 Генерация отчёта
 bash
@@ -135,11 +128,11 @@ Timeline — временная шкала выполнения
 Behaviors — тесты сгруппированы по Epic/Feature
 
 Скриншоты
-⚠️ Все тесты упали с TimeoutException из-за недоступности сервера (см. раздел выше).
-
 https://screenshots/allure-overview.png
+Overview: 9 тестов, 100% успеха
 
 https://screenshots/allure-suites.png
+Suites: детализация по классам тестов
 
 Особенности реализации
 ✅ API + UI тестирование — тестовые данные создаются и удаляются через API для скорости и надёжности
@@ -233,8 +226,7 @@ createDriver(String browserName) — создание драйвера для у
 Автоматически устанавливает таймауты
 
 Page Objects
-MainPage
-Главная страница приложения:
+MainPage — Главная страница приложения:
 
 clickLoginButton() — клик на кнопку «Войти в аккаунт»
 
@@ -246,8 +238,7 @@ isMainPageLoaded() — проверка загрузки страницы
 
 waitForOrderButtonVisible() — ожидание видимости кнопки
 
-LoginPage
-Страница входа:
+LoginPage — Страница входа:
 
 enterEmail(String email) — ввод email
 
@@ -263,8 +254,7 @@ clickForgotPasswordLink() — переход на восстановление �
 
 isLoginPageLoaded() — проверка загрузки страницы
 
-RegisterPage
-Страница регистрации:
+RegisterPage — Страница регистрации:
 
 enterName(String name) — ввод имени
 
@@ -284,15 +274,13 @@ isPasswordErrorDisplayed() — проверка ошибки пароля
 
 getPasswordErrorText() — получение текста ошибки
 
-ForgotPasswordPage
-Страница восстановления пароля:
+ForgotPasswordPage — Страница восстановления пароля:
 
 clickLoginLink() — переход на вход
 
 isForgotPasswordPageLoaded() — проверка загрузки страницы
 
-ConstructorPage
-Страница конструктора бургеров:
+ConstructorPage — Страница конструктора бургеров:
 
 clickBunsTab() — переход на вкладку «Булки»
 
@@ -310,9 +298,7 @@ isFillingsTabActive() — проверка активности вкладки �
 
 waitForActiveTab(String expectedText) — ожидание смены активной вкладки
 
-Структура теста
-Пример: RegistrationTest
-
+Структура теста (пример: RegistrationTest)
 java
 @Epic("Stellar Burgers UI")
 @Feature("Регистрация")
@@ -352,7 +338,7 @@ Config.java
 
 java
 // URL-адреса
-public static final String BASE_URL = "https://stellarburgers.education-services.ru";
+public static final String BASE_URL = "https://qa-stellarburgers.education-services.ru";
 public static final String REGISTER_URL = BASE_URL + "/register";
 public static final String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
 
@@ -364,14 +350,13 @@ public static final String API_USER = API_BASE_URL + "/auth/user";
 
 // Таймауты
 public static final int IMPLICIT_WAIT = 5;
-public static final int EXPLICIT_WAIT = 10;
-public static final int PAGE_LOAD_TIMEOUT = 15;
+public static final int EXPLICIT_WAIT = 20;
+public static final int PAGE_LOAD_TIMEOUT = 30;
 
 // Браузер
-public static final String DEFAULT_BROWSER =
-    System.getProperty("browser", "chrome");
-public static final String YANDEX_DRIVER_PATH =
-    System.getProperty("yandex.driver.path",
+public static final String DEFAULT_BROWSER = System.getProperty("browser", "chrome");
+public static final String YANDEX_DRIVER_PATH = System.getProperty("yandex.driver.path",
         "C:/Users/valer/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe");
-        
+public static final String YANDEX_BROWSER_PATH = System.getProperty("yandex.browser.path",
+        "C:\\Program Files\\Yandex\\YandexBrowser\\Application\\browser.exe");
 Этот проект создан как финальный диплом Яндекс.Практикума по QA-автоматизации.

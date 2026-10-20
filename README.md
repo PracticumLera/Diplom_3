@@ -1,20 +1,55 @@
-# Diplom_3: UI-автотесты для Stellar Burgers
+# 🍔 Stellar Burgers — UI-автотесты
 
-Проект автоматизации UI-тестирования приложения Stellar Burgers на Java 11 с использованием Selenium WebDriver, JUnit 4, Allure и паттерна Page Object.
+![Java](https://img.shields.io/badge/Java-11-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-4.25.0-43B02A?style=flat-square&logo=selenium&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-4.13.2-25A162?style=flat-square&logo=junit5&logoColor=white)
+![Allure](https://img.shields.io/badge/Allure-2.27.0-FF6A00?style=flat-square)
+![Maven](https://img.shields.io/badge/Maven-3.6+-C71A36?style=flat-square&logo=apachemaven&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-9%20passed-brightgreen?style=flat-square)
 
-## Стек технологий
+Дипломный проект **Яндекс.Практикума** по специальности «QA-автоматизация»: автоматизация UI-тестирования
+учебного приложения **Stellar Burgers** на Java 11 с использованием Selenium WebDriver, JUnit 4, Allure
+и паттерна **Page Object**.
 
-- **Java 11** — язык программирования
-- **Selenium WebDriver 4.25.0** — управление браузером
-- **JUnit 4.13.2** — фреймворк для тестирования
-- **REST Assured 5.5.5** — API-предусловия (создание/удаление юзера)
-- **Allure 2.27.0** — отчётность
-- **Lombok 1.18.34** — генерация кода
-- **Jackson 2.17.1** — работа с JSON
-- **WebDriverManager 5.9.2** — автоустановка ChromeDriver
-- **Maven** — сборка проекта
+Тесты проверяют три ключевых сценария продукта: **регистрацию**, **вход в аккаунт** (4 способа) и
+**навигацию по конструктору бургеров**. Тестовые пользователи создаются и удаляются через API,
+поэтому каждый тест независим и не оставляет мусора в базе.
 
-## Структура проекта
+---
+
+## 📑 Содержание
+
+- [Стек технологий](#-стек-технологий)
+- [Структура проекта](#-структура-проекта)
+- [Тесты (9 штук)](#-тесты-9-штук)
+- [Быстрый старт](#-быстрый-старт)
+- [Запуск тестов](#-запуск-тестов)
+- [Allure-отчёты](#-allure-отчёты)
+- [Скриншоты](#-скриншоты)
+- [Особенности реализации](#-особенности-реализации)
+- [Основные компоненты](#-основные-компоненты)
+- [Пример теста](#-пример-теста)
+- [Конфигурация](#-конфигурация)
+
+---
+
+## 🛠 Стек технологий
+
+| Технология | Версия | Назначение |
+|---|---|---|
+| ☕ **Java** | 11 | Язык программирования |
+| 🌐 **Selenium WebDriver** | 4.25.0 | Управление браузером |
+| ✅ **JUnit 4** | 4.13.2 | Фреймворк для тестирования |
+| 🔌 **REST Assured** | 5.5.5 | API-предусловия (создание/удаление юзера) |
+| 📊 **Allure** | 2.27.0 | Отчётность |
+| 🧩 **Lombok** | 1.18.34 | Генерация кода (модели) |
+| 📦 **Jackson** | 2.17.1 | Работа с JSON |
+| 🚗 **WebDriverManager** | 5.9.2 | Автоустановка ChromeDriver |
+| 🏗 **Maven** | 3.6+ | Сборка проекта и запуск тестов |
+
+---
+
+## 📂 Структура проекта
 
 ```text
 src/test/java/ru/stellarburgers/
@@ -46,155 +81,200 @@ src/test/java/ru/stellarburgers/
 └── utils/
     ├── BrowserFactory.java             — фабрика браузеров (Chrome, Яндекс)
     └── TestDataGenerator.java          — генерация тестовых данных
-Тесты (9 штук)
-Текущий результат: ✅ 9 passed (100% успеха).
+```
 
-Регистрация (RegistrationTest) — 2 теста
-✅ Успешная регистрация — проверка регистрации новой учётной записи с валидными данными
+---
 
-✅ Ошибка при пароле менее 6 символов — проверка сообщения об ошибке
+## ✅ Тесты (9 штук)
 
-Вход (LoginTest) — 4 теста
-✅ Вход через кнопку «Войти в аккаунт» на главной
+**Текущий результат: 9 passed — 100% успеха.**
 
-✅ Вход через кнопку «Личный кабинет»
+### Регистрация — `RegistrationTest` (2 теста)
 
-✅ Вход через кнопку в форме регистрации
+| # | Тест | Что проверяем |
+|---|---|---|
+| 1 | ✅ **Успешная регистрация** | Регистрация новой учётной записи с валидными данными и переход на страницу входа |
+| 2 | ✅ **Ошибка при пароле менее 6 символов** | Появление сообщения об ошибке валидации пароля |
 
-✅ Вход через кнопку в форме восстановления пароля
+### Вход — `LoginTest` (4 теста)
 
-Конструктор (ConstructorNavigationTest) — 3 теста
-✅ Переход к разделу «Булки»
+| # | Тест | Точка входа |
+|---|---|---|
+| 3 | ✅ **Вход через «Войти в аккаунт»** | Кнопка на главной странице |
+| 4 | ✅ **Вход через «Личный кабинет»** | Ссылка в шапке сайта |
+| 5 | ✅ **Вход через форму регистрации** | Ссылка «Войти» на странице `/register` |
+| 6 | ✅ **Вход через форму восстановления пароля** | Ссылка «Войти» на странице `/forgot-password` |
 
-✅ Переход к разделу «Соусы»
+### Конструктор — `ConstructorNavigationTest` (3 теста)
 
-✅ Переход к разделу «Начинки»
+| # | Тест | Что проверяем |
+|---|---|---|
+| 7 | ✅ **Переход к разделу «Булки»** | Вкладка становится активной |
+| 8 | ✅ **Переход к разделу «Соусы»** | Вкладка становится активной |
+| 9 | ✅ **Переход к разделу «Начинки»** | Вкладка становится активной |
 
-Быстрый старт
-Требования
-Java 11+ — скачать
+---
 
-Maven 3.6+ — скачать
+## 🚀 Быстрый старт
 
-Google Chrome — браузер для тестирования (по умолчанию)
+### Требования
 
-Яндекс Браузер — браузер для тестирования (опционально)
+- **Java 11+** — [скачать](https://adoptium.net/)
+- **Maven 3.6+** — [скачать](https://maven.apache.org/download.cgi)
+- **Google Chrome** — браузер для тестирования (по умолчанию)
+- **Яндекс Браузер** — опционально
 
-Установка Яндекс Браузера и драйвера
-Для запуска тестов в Яндекс Браузере:
+Проверить окружение:
 
-Установить Яндекс Браузер.
+```bash
+java -version
+mvn -version
+```
 
-Скачать yandexdriver.exe с GitHub releases.
+Тестовый стенд: <https://qa-stellarburgers.education-services.ru>
 
-Указать пути в Config.java:
+### Установка Яндекс Браузера и драйвера
 
-java
-public static final String YANDEX_DRIVER_PATH = "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
-public static final String YANDEX_BROWSER_PATH = "C:\\Program Files\\Yandex\\YandexBrowser\\Application\\browser.exe";
-Запуск тестов
-Запуск всех тестов (Chrome по умолчанию)
-bash
+1. Установить **Яндекс Браузер**.
+2. Скачать `yandexdriver.exe` со страницы
+   [GitHub releases](https://github.com/yandex/YandexDriver/releases).
+3. Указать пути в `Config.java`:
+
+```java
+public static final String YANDEX_DRIVER_PATH =
+        "C:/Users/вашеимя/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe";
+public static final String YANDEX_BROWSER_PATH =
+        "C:\\Program Files\\Yandex\\YandexBrowser\\Application\\browser.exe";
+```
+
+> 💡 Пути можно не менять в коде, а передать параметрами запуска:
+> `-Dyandex.driver.path=... -Dyandex.browser.path=...`
+
+---
+
+## 🏃 Запуск тестов
+
+### Основные команды
+
+| Команда | Что делает |
+|---|---|
+| `mvn clean test` | Все тесты, Chrome по умолчанию |
+| `mvn clean test -Dbrowser=chrome` | Все тесты в Google Chrome |
+| `mvn clean test -Dbrowser=yandex` | Все тесты в Яндекс Браузере |
+| `mvn clean test -Dtest=RegistrationTest` | Только тесты регистрации |
+| `mvn clean test -Dtest=LoginTest` | Только тесты входа |
+| `mvn clean test -Dtest=ConstructorNavigationTest` | Только тесты конструктора |
+
+### Примеры
+
+```bash
+# Все тесты в Chrome
 mvn clean test
-Запуск в Google Chrome
-bash
+
+# Конкретный браузер
 mvn clean test -Dbrowser=chrome
-Запуск в Яндекс Браузере
-bash
 mvn clean test -Dbrowser=yandex
-Запуск конкретного тест-класса
-bash
+
+# Конкретный тест-класс
 mvn clean test -Dtest=RegistrationTest
 mvn clean test -Dtest=LoginTest
 mvn clean test -Dtest=ConstructorNavigationTest
-Allure-отчёты
-Генерация отчёта
-bash
+```
+
+---
+
+## 📊 Allure-отчёты
+
+### Генерация отчёта
+
+```bash
 mvn allure:report
-Просмотр отчёта в браузере
-bash
+```
+
+### Просмотр отчёта в браузере
+
+```bash
 mvn allure:serve
+```
+
 После выполнения команды отчёт автоматически откроется в браузере.
 
-Содержание отчёта
-Overview — статистика выполнения тестов
+### Что внутри отчёта
 
-Suites — разбиение тестов по категориям (регистрация, вход, конструктор)
+- **Overview** — статистика выполнения тестов
+- **Suites** — разбиение тестов по категориям (регистрация, вход, конструктор)
+- **Graphs** — графики результатов
+- **Timeline** — временная шкала выполнения
+- **Behaviors** — тесты, сгруппированные по Epic/Feature
 
-Graphs — графики результатов
+---
 
-Timeline — временная шкала выполнения
+## 📸 Скриншоты
 
-Behaviors — тесты сгруппированы по Epic/Feature
-
-Скриншоты
 ![Allure Overview](screenshots/allure-overview.png)
-Overview: 9 тестов, 100% успеха
+
+*Overview: 9 тестов, 100% успеха*
 
 ![Allure Suites](screenshots/allure-suites.png)
-Suites: детализация по классам тестов
 
-Особенности реализации
-✅ API + UI тестирование — тестовые данные создаются и удаляются через API для скорости и надёжности
+*Suites: детализация по классам тестов*
 
-✅ Page Object Pattern — инкапсуляция элементов и методов взаимодействия со страницами
+---
 
-✅ Steps — обёртки над Page Objects для читаемых тестов
+## 💡 Особенности реализации
 
-✅ Независимые тесты — каждый тест создаёт своего пользователя в setUp() и удаляет в tearDown()
+- ✅ **API + UI тестирование** — тестовые данные создаются и удаляются через API для скорости и надёжности
+- ✅ **Page Object Pattern** — инкапсуляция элементов и методов взаимодействия со страницами
+- ✅ **Steps** — обёртки над Page Objects для читаемых тестов
+- ✅ **Независимые тесты** — каждый тест создаёт своего пользователя в `setUp()` и удаляет в `tearDown()`
+- ✅ **Явное ожидание** — `WebDriverWait` для надёжной работы с динамическими элементами
+- ✅ **Allure интеграция** — `@Epic`, `@Feature`, `@DisplayName`, `@Description` для читаемых отчётов
+- ✅ **WebDriverManager** — автоматическая загрузка ChromeDriver, без ручной настройки
+- ✅ **Генерация тестовых данных** — уникальные email/пароль/имя для каждого теста
+- ✅ **Поддержка Chrome и Яндекс Браузера** — выбор через `-Dbrowser=...`
 
-✅ Явное ожидание — использование WebDriverWait для надёжной работы с элементами
+---
 
-✅ Allure интеграция — @Epic, @Feature, @DisplayName, @Description для читаемых отчётов
+## 🧩 Основные компоненты
 
-✅ WebDriverManager — автоматическая загрузка ChromeDriver
+### `BaseUiTest`
 
-✅ Генерация тестовых данных — уникальные email/пароль для каждого теста
-
-✅ Поддержка Chrome и Яндекс Браузера — выбор через -Dbrowser=...
-
-Основные компоненты
-BaseUiTest
 Базовый класс для всех тестов. Автоматически выполняет:
 
-Инициализирует WebDriver в setUp()
+1. Инициализирует `WebDriver` в `setUp()`
+2. Создаёт тестового пользователя через API
+3. Получает `accessToken` для авторизации
+4. Удаляет пользователя через API в `tearDown()`
+5. Закрывает браузер в `tearDown()`
 
-Создаёт тестового пользователя через API
+### `BasePage`
 
-Получает accessToken для авторизации
-
-Удаляет пользователя через API в tearDown()
-
-Закрывает браузер в tearDown()
-
-BasePage
 Базовый Page Object с вспомогательными методами:
 
-find(By locator) — поиск видимого элемента с явным ожиданием
+| Метод | Назначение |
+|---|---|
+| `find(By locator)` | Поиск видимого элемента с явным ожиданием |
+| `click(By locator)` | Клик после проверки кликабельности |
+| `type(By locator, String text)` | Ввод текста с очисткой поля |
+| `getText(By locator)` | Получение текста элемента |
+| `isDisplayed(By locator)` | Проверка видимости |
+| `waitForElementVisible(By locator)` | Явное ожидание видимости |
 
-click(By locator) — клик после проверки кликабельности
+### `UserApiClient`
 
-type(By locator, String text) — ввод текста с очисткой поля
-
-getText(By locator) — получение текста элемента
-
-isDisplayed(By locator) — проверка видимости
-
-waitForElementVisible(By locator) — явное ожидание видимости
-
-UserApiClient
 REST API-клиент для работы с пользователями:
 
-createUser(UserModel user) — регистрация пользователя и получение токена
+| Метод | Назначение |
+|---|---|
+| `createUser(UserModel user)` | Регистрация пользователя и получение токена |
+| `loginUser(UserModel user)` | Авторизация и получение токена |
+| `deleteUser()` | Удаление пользователя |
 
-loginUser(UserModel user) — авторизация и получение токена
+### `UserModel`
 
-deleteUser() — удаление пользователя
-
-UserModel
 Модель пользователя с Lombok:
 
-java
+```java
 @Data
 @Builder
 @NoArgsConstructor
@@ -205,101 +285,107 @@ public class UserModel {
     private String password;
     private String name;
 }
-TestDataGenerator
+```
+
+### `TestDataGenerator`
+
 Генератор уникальных тестовых данных:
 
-generateEmail() — email формата test_UUID@yandex.ru
+| Метод | Формат |
+|---|---|
+| `generateEmail()` | `test_UUID@yandex.ru` |
+| `generatePassword()` | `Pass_UUID` |
+| `generateName()` | `User_UUID` |
+| `generateShortPassword()` | `123` (для negative-тестов) |
 
-generatePassword() — пароль формата Pass_UUID
+### `BrowserFactory`
 
-generateName() — имя формата User_UUID
+Фабрика для создания `WebDriver`:
 
-generateShortPassword() — короткий пароль 123 (для negative тестов)
+| Метод | Назначение |
+|---|---|
+| `createDriver(String browserName)` | Создание драйвера для указанного браузера |
 
-BrowserFactory
-Фабрика для создания WebDriver:
+Поддерживаемые браузеры: `chrome`, `yandex`. Автоматически устанавливает таймауты.
 
-createDriver(String browserName) — создание драйвера для указанного браузера
+### Page Objects
 
-Поддерживаемые браузеры: chrome, yandex
+<details>
+<summary><b>MainPage</b> — главная страница</summary>
 
-Автоматически устанавливает таймауты
+| Метод | Назначение |
+|---|---|
+| `clickLoginButton()` | Клик на кнопку «Войти в аккаунт» |
+| `clickPersonalAccountLink()` | Клик на ссылку «Личный Кабинет» |
+| `isOrderButtonDisplayed()` | Проверка видимости кнопки «Оформить заказ» |
+| `isMainPageLoaded()` | Проверка загрузки страницы |
+| `waitForOrderButtonVisible()` | Ожидание видимости кнопки |
 
-Page Objects
-MainPage — Главная страница приложения:
+</details>
 
-clickLoginButton() — клик на кнопку «Войти в аккаунт»
+<details>
+<summary><b>LoginPage</b> — страница входа</summary>
 
-clickPersonalAccountLink() — клик на ссылку «Личный Кабинет»
+| Метод | Назначение |
+|---|---|
+| `enterEmail(String email)` | Ввод email |
+| `enterPassword(String password)` | Ввод пароля |
+| `clickLoginButton()` | Клик на кнопку «Войти» |
+| `login(String email, String password)` | Комплексный метод входа |
+| `clickRegisterLink()` | Переход на регистрацию |
+| `clickForgotPasswordLink()` | Переход на восстановление пароля |
+| `isLoginPageLoaded()` | Проверка загрузки страницы |
 
-isOrderButtonDisplayed() — проверка видимости кнопки «Оформить заказ»
+</details>
 
-isMainPageLoaded() — проверка загрузки страницы
+<details>
+<summary><b>RegisterPage</b> — страница регистрации</summary>
 
-waitForOrderButtonVisible() — ожидание видимости кнопки
+| Метод | Назначение |
+|---|---|
+| `enterName(String name)` | Ввод имени |
+| `enterEmail(String email)` | Ввод email |
+| `enterPassword(String password)` | Ввод пароля |
+| `clickRegisterButton()` | Клик на кнопку «Зарегистрироваться» |
+| `register(String name, String email, String password)` | Комплексный метод регистрации |
+| `clickLoginLink()` | Переход на вход |
+| `isRegisterPageLoaded()` | Проверка загрузки страницы |
+| `isPasswordErrorDisplayed()` | Проверка ошибки пароля |
+| `getPasswordErrorText()` | Получение текста ошибки |
 
-LoginPage — Страница входа:
+</details>
 
-enterEmail(String email) — ввод email
+<details>
+<summary><b>ForgotPasswordPage</b> — страница восстановления пароля</summary>
 
-enterPassword(String password) — ввод пароля
+| Метод | Назначение |
+|---|---|
+| `clickLoginLink()` | Переход на вход |
+| `isForgotPasswordPageLoaded()` | Проверка загрузки страницы |
 
-clickLoginButton() — клик на кнопку «Войти»
+</details>
 
-login(String email, String password) — комплексный метод входа
+<details>
+<summary><b>ConstructorPage</b> — конструктор бургеров</summary>
 
-clickRegisterLink() — переход на регистрацию
+| Метод | Назначение |
+|---|---|
+| `clickBunsTab()` | Переход на вкладку «Булки» |
+| `clickSaucesTab()` | Переход на вкладку «Соусы» |
+| `clickFillingsTab()` | Переход на вкладку «Начинки» |
+| `getActiveTabText()` | Получение названия активной вкладки |
+| `isBunsTabActive()` | Проверка активности вкладки «Булки» |
+| `isSaucesTabActive()` | Проверка активности вкладки «Соусы» |
+| `isFillingsTabActive()` | Проверка активности вкладки «Начинки» |
+| `waitForActiveTab(String expectedText)` | Ожидание смены активной вкладки |
 
-clickForgotPasswordLink() — переход на восстановление пароля
+</details>
 
-isLoginPageLoaded() — проверка загрузки страницы
+---
 
-RegisterPage — Страница регистрации:
+## 📝 Пример теста
 
-enterName(String name) — ввод имени
-
-enterEmail(String email) — ввод email
-
-enterPassword(String password) — ввод пароля
-
-clickRegisterButton() — клик на кнопку «Зарегистрироваться»
-
-register(String name, String email, String password) — комплексный метод регистрации
-
-clickLoginLink() — переход на вход
-
-isRegisterPageLoaded() — проверка загрузки страницы
-
-isPasswordErrorDisplayed() — проверка ошибки пароля
-
-getPasswordErrorText() — получение текста ошибки
-
-ForgotPasswordPage — Страница восстановления пароля:
-
-clickLoginLink() — переход на вход
-
-isForgotPasswordPageLoaded() — проверка загрузки страницы
-
-ConstructorPage — Страница конструктора бургеров:
-
-clickBunsTab() — переход на вкладку «Булки»
-
-clickSaucesTab() — переход на вкладку «Соусы»
-
-clickFillingsTab() — переход на вкладку «Начинки»
-
-getActiveTabText() — получение названия активной вкладки
-
-isBunsTabActive() — проверка активности вкладки «Булки»
-
-isSaucesTabActive() — проверка активности вкладки «Соусы»
-
-isFillingsTabActive() — проверка активности вкладки «Начинки»
-
-waitForActiveTab(String expectedText) — ожидание смены активной вкладки
-
-Структура теста (пример: RegistrationTest)
-java
+```java
 @Epic("Stellar Burgers UI")
 @Feature("Регистрация")
 public class RegistrationTest extends BaseUiTest {
@@ -333,10 +419,15 @@ public class RegistrationTest extends BaseUiTest {
                 loginPage.isLoginPageLoaded());
     }
 }
-Config.java
-Файл конфигурации содержит:
+```
 
-java
+---
+
+## 🔧 Конфигурация
+
+Файл `Config.java` содержит:
+
+```java
 // URL-адреса
 public static final String BASE_URL = "https://qa-stellarburgers.education-services.ru";
 public static final String REGISTER_URL = BASE_URL + "/register";
@@ -359,4 +450,14 @@ public static final String YANDEX_DRIVER_PATH = System.getProperty("yandex.drive
         "C:/Users/valer/Downloads/yandexdriver-26.8.0.1788-win64/yandexdriver.exe");
 public static final String YANDEX_BROWSER_PATH = System.getProperty("yandex.browser.path",
         "C:\\Program Files\\Yandex\\YandexBrowser\\Application\\browser.exe");
-Этот проект создан как финальный диплом Яндекс.Практикума по QA-автоматизации.
+```
+
+---
+
+<div align="center">
+
+**Проект создан как финальный диплом Яндекс.Практикума по QA-автоматизации.**
+
+Java 11 · Selenium · JUnit 4 · Allure · Page Object
+
+</div>

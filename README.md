@@ -128,10 +128,10 @@ Timeline — временная шкала выполнения
 Behaviors — тесты сгруппированы по Epic/Feature
 
 Скриншоты
-https://screenshots/allure-overview.png
+![Allure Overview](screenshots/allure-overview.png)
 Overview: 9 тестов, 100% успеха
 
-https://screenshots/allure-suites.png
+![Allure Suites](screenshots/allure-suites.png)
 Suites: детализация по классам тестов
 
 Особенности реализации
